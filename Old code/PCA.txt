@@ -1,0 +1,28 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+pd.options.mode.chained_assignment = None
+
+general_path = 'dataset/archive/Data'
+gen = pd.read_csv(f'{general_path}/features_30_sec.csv')
+
+X = gen.drop(['filename', 'label'], axis=1)  # Exclude the 'filename' and 'label' columns
+scaler = StandardScaler()
+scaled_data = scaler.fit_transform(X)
+
+pca = PCA()
+principal_components = pca.fit_transform(scaled_data)
+
+explained_variance_ratio = pca.explained_variance_ratio_
+cumulative_variance = np.cumsum(explained_variance_ratio)
+
+# Plot cumulative explained variance
+plt.plot(range(1, len(cumulative_variance) + 1), cumulative_variance, marker='o', linestyle='-')
+plt.xlabel('Number of Principal Components')
+plt.ylabel('Cumulative Explained Variance')
+plt.title('Cumulative Explained Variance by Principal Components')
+plt.grid(True)
+plt.show()

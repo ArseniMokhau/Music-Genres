@@ -1,0 +1,111 @@
+import math
+import random as rn
+import warnings
+
+import pandas as pd
+
+pd.options.mode.chained_assignment = None
+warnings.filterwarnings('ignore')
+
+general_path = 'dataset/archive/Data'
+gen = pd.read_csv(f'{general_path}/features_30_sec.csv')
+
+
+class DataProcessing:
+    @staticmethod
+    def shuffle(x):
+        for i in range(len(x) - 1, 0, -1):
+            j = rn.randint(0, i - 1)
+            x.iloc[i], x.iloc[j] = x.iloc[j], x.iloc[i]
+
+    @staticmethod
+    def min_max_scaling(x):
+        values = x.select_dtypes(exclude=["object", "string"])
+        columnNames = values.columns.tolist()
+        for column in columnNames:
+            x[column] = pd.to_numeric(x[column])
+            data = x.loc[:, column]
+            min1 = min(data)
+            max1 = max(data)
+            for row in range(len(x)):
+                xprim = (x.at[row, column] - min1) / (max1 - min1)
+                x.at[row, column] = xprim
+
+    @staticmethod
+    def split(x, train_ratio, val_ratio):
+        train_size = int(len(x) * train_ratio)
+        val_size = int(len(x) * val_ratio)
+        test_size = len(x) - train_size - val_size
+
+        train_set = x[:train_size]
+        val_set = x[train_size:train_size + val_size]
+        test_set = x[train_size + val_size:]
+
+        return train_set, val_set, test_set
+
+
+class KNN:
+    def __init__(self, k):
+        self.k = k
+
+    def clustering(self, lista, sample):
+        distances = []
+        for i in range(len(lista)):
+            temp = 0
+            for j in range(len(sample)):
+                temp += pow((lista.iloc[i][j] - sample[j]), 2)
+            distances.append(math.sqrt(temp))
+        lista["distance"] = distances
+        lista = lista.sort_values("distance")
+        dictionary = dict()
+        dictionary1 = {"blues": 0, "classical": 0, "country": 0, "disco": 0, "hiphop": 0, "jazz": 0, "metal": 0,
+                       "pop": 0, "reggae": 0, "rock": 0}
+        for i in range(self.k):
+            dictionary1[lista.iloc[i]["label"]] += 1
+        return max(dictionary1, key=dictionary1.get)
+
+    def knn_predict(self, lista, lista_t):
+        pred = []
+        for i in range(len(lista_t)):
+            name = self.clustering(lista, pd.to_numeric(lista_t.iloc[i]))
+            pred.append(name)
+        return pred
+
+    def accuracy(self, prediction, lista_v):
+        counter = 0
+        for i in range(len(lista_v)):
+            if prediction[i] == lista_v.iloc[i]:
+                counter += 1
+        return (counter / len(lista_v)) * 100
+
+
+DataProcessing.shuffle(gen)
+print("Shuffled")
+
+train_set, val_set, test_set = DataProcessing.split(gen, 0.7, 0.2)
+print("Split")
+
+DataProcessing.min_max_scaling(train_set)
+val_set = val_set.reset_index(drop=True)
+DataProcessing.min_max_scaling(val_set)
+test_set = test_set.reset_index(drop=True)
+DataProcessing.min_max_scaling(test_set)
+print("Normalized")
+features_list = [
+    'length', 'chroma_stft_mean', 'chroma_stft_var', 'rms_mean', 'rms_var', 'spectral_centroid_mean',
+    'spectral_centroid_var', 'spectral_bandwidth_mean', 'spectral_bandwidth_var', 'rolloff_mean',
+    'rolloff_var', 'zero_crossing_rate_mean', 'zero_crossing_rate_var', 'harmony_mean', 'harmony_var',
+    'perceptr_mean', 'perceptr_var', 'tempo', 'mfcc1_mean', 'mfcc1_var', 'mfcc2_mean', 'mfcc2_var',
+    'mfcc3_mean', 'mfcc3_var', 'mfcc4_mean', 'mfcc4_var', 'mfcc5_mean', 'mfcc5_var', 'mfcc6_mean',
+    'mfcc6_var', 'mfcc7_mean', 'mfcc7_var', 'mfcc8_mean', 'mfcc8_var', 'mfcc9_mean', 'mfcc9_var',
+    'mfcc10_mean', 'mfcc10_var', 'mfcc11_mean', 'mfcc11_var', 'mfcc12_mean', 'mfcc12_var', 'mfcc13_mean',
+    'mfcc13_var', 'mfcc14_mean', 'mfcc14_var', 'mfcc15_mean', 'mfcc15_var', 'mfcc16_mean', 'mfcc16_var',
+    'mfcc17_mean', 'mfcc17_var', 'mfcc18_mean', 'mfcc18_var', 'mfcc19_mean', 'mfcc19_var', 'mfcc20_mean',
+    'mfcc20_var'
+]
+knn = KNN(k=6)
+for feature in features_list:
+    predicted = knn.knn_predict(train_set.drop(['filename', feature], axis=1), val_set.drop(['filename', 'label',
+                                                                                             feature], axis=1))
+    accuracy = knn.accuracy(predicted, val_set['label'])
+    print(f"Test Accuracy: {accuracy} , removed feature: {feature}")

@@ -1,0 +1,64 @@
+D:\music_genres\venv\Scripts\python.exe D:\music_genres\main.py 
+Shuffled
+Split
+Normalized
+Test Accuracy: 66.0 , removed feature: length
+Test Accuracy: 66.0 , removed feature: chroma_stft_mean
+Test Accuracy: 65.0 , removed feature: chroma_stft_var
+Test Accuracy: 67.5 , removed feature: rms_mean
+Test Accuracy: 64.0 , removed feature: rms_var
+Test Accuracy: 64.0 , removed feature: spectral_centroid_mean
+Test Accuracy: 66.5 , removed feature: spectral_centroid_var
+Test Accuracy: 67.5 , removed feature: spectral_bandwidth_mean
+Test Accuracy: 64.0 , removed feature: spectral_bandwidth_var
+Test Accuracy: 65.0 , removed feature: rolloff_mean
+Test Accuracy: 64.0 , removed feature: rolloff_var
+Test Accuracy: 66.0 , removed feature: zero_crossing_rate_mean
+Test Accuracy: 67.0 , removed feature: zero_crossing_rate_var
+Test Accuracy: 66.5 , removed feature: harmony_mean
+Test Accuracy: 64.0 , removed feature: harmony_var
+Test Accuracy: 64.0 , removed feature: perceptr_mean
+Test Accuracy: 62.5 , removed feature: perceptr_var
+Test Accuracy: 66.5 , removed feature: tempo
+Test Accuracy: 65.0 , removed feature: mfcc1_mean
+Test Accuracy: 64.5 , removed feature: mfcc1_var
+Test Accuracy: 67.0 , removed feature: mfcc2_mean
+Test Accuracy: 64.0 , removed feature: mfcc2_var
+Test Accuracy: 65.5 , removed feature: mfcc3_mean
+Test Accuracy: 65.0 , removed feature: mfcc3_var
+Test Accuracy: 63.5 , removed feature: mfcc4_mean
+Test Accuracy: 64.5 , removed feature: mfcc4_var
+Test Accuracy: 64.5 , removed feature: mfcc5_mean
+Test Accuracy: 67.5 , removed feature: mfcc5_var
+Test Accuracy: 67.5 , removed feature: mfcc6_mean
+Test Accuracy: 65.5 , removed feature: mfcc6_var
+Test Accuracy: 65.0 , removed feature: mfcc7_mean
+Test Accuracy: 66.0 , removed feature: mfcc7_var
+Test Accuracy: 69.5 , removed feature: mfcc8_mean
+Test Accuracy: 66.0 , removed feature: mfcc8_var
+Test Accuracy: 64.0 , removed feature: mfcc9_mean
+Test Accuracy: 65.5 , removed feature: mfcc9_var
+Test Accuracy: 65.5 , removed feature: mfcc10_mean
+Test Accuracy: 65.5 , removed feature: mfcc10_var
+Test Accuracy: 66.5 , removed feature: mfcc11_mean
+Test Accuracy: 66.5 , removed feature: mfcc11_var
+Test Accuracy: 66.5 , removed feature: mfcc12_mean
+Test Accuracy: 66.5 , removed feature: mfcc12_var
+Test Accuracy: 66.0 , removed feature: mfcc13_mean
+Test Accuracy: 65.5 , removed feature: mfcc13_var
+Test Accuracy: 65.5 , removed feature: mfcc14_mean
+Test Accuracy: 67.0 , removed feature: mfcc14_var
+Test Accuracy: 66.5 , removed feature: mfcc15_mean
+Test Accuracy: 66.5 , removed feature: mfcc15_var
+Test Accuracy: 67.0 , removed feature: mfcc16_mean
+Test Accuracy: 68.0 , removed feature: mfcc16_var
+Test Accuracy: 66.5 , removed feature: mfcc17_mean
+Test Accuracy: 67.0 , removed feature: mfcc17_var
+Test Accuracy: 64.5 , removed feature: mfcc18_mean
+Test Accuracy: 65.0 , removed feature: mfcc18_var
+Test Accuracy: 66.0 , removed feature: mfcc19_mean
+Test Accuracy: 67.0 , removed feature: mfcc19_var
+Test Accuracy: 65.0 , removed feature: mfcc20_mean
+Test Accuracy: 66.0 , removed feature: mfcc20_var
+
+Process finished with exit code 0
