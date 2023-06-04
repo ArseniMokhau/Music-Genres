@@ -1,4 +1,3 @@
-
 import random as rn
 import pandas as pd
 
