@@ -50,8 +50,8 @@ for i in k:
     print(f"Accuracy: {accuracy}, k={i}")
 
 # Select a random entry with filename starting with "X"
-rock_entries = test_set[test_set['filename'].str.startswith('rock')]
-random_entry_index = random.choice(rock_entries.index)
+random_entries = test_set[test_set['filename'].str.startswith('rock')]
+random_entry_index = random.choice(random_entries.index)
 
 # Get the filename and corresponding predicted label
 filename = test_set.loc[random_entry_index, 'filename']

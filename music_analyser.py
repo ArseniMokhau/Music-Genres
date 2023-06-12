@@ -10,13 +10,19 @@ class MusicAnalyser:
     def find_similar_songs(self, name, label):
         data = pd.read_csv(f'{self.general_path}/features_30_sec.csv', index_col='filename')
 
+        # Copy the entry with the specified name
+        entry_with_name = data.loc[[name]]
+
         # Filter the data based on the label
         filtered_data = data[data['label'] == label]
+
+        # Concatenate the entry with the filtered data
+        filtered_data = pd.concat([filtered_data, entry_with_name])
 
         # Extract labels
         labels = filtered_data[['label']]
 
-        # Drop labels from the filtered dataframe
+        # Drop unnecessary columns from the filtered dataframe
         filtered_data = filtered_data.drop(columns=['length', 'label'])
 
         # Scale the filtered data
